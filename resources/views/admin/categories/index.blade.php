@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
+                    @foreach ($categorys as $category)
                         <tr>
                             <th scope="row">{{ $category->id }}</th>
                             <td class="text-truncate" style="max-width: 100px;">{{ $category->name }}</td>
@@ -86,7 +86,7 @@
                 </tbody>
             </table>
 
-            {{-- {{ $categories->links() }} --}}
+            {{ $categorys->links() }}
         </div>
     </div>
 @endsection

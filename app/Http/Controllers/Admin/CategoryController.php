@@ -16,8 +16,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories = Category::all();
-        return view("admin.categories.index", ["categories" => $categories]);
+        $categorys = Category::paginate(1);
+        return view("admin.categories.index", ["categorys" => $categorys]);
     }
 
     /**
@@ -138,16 +138,16 @@ class CategoryController extends Controller
     public function search(Request $request)
     {
         $search = htmlspecialchars($request->input("search"));
-        $categories = Category::where("name", "LIKE", "%{$search}%")
+        $categorys = Category::where("name", "LIKE", "%{$search}%")
             ->paginate(5)
             ->appends(["search" => $search]); // يحافظ على الكلمة عند التنقل بين الصفحات
 
-        if ($categories->total() === 0) {
+        if ($categorys->total() === 0) {
             return to_route("admin.categories.index")
                 ->with("alert", "Not Found Any Categories Like $search");
         }
 
-        return view("admin.categories.index", ["categories" => $categories])
+        return view("admin.categories.index", ["categorys" => $categorys])
             ->with("alert", "Found Categories Like $search");
     }
 }
